@@ -32,7 +32,7 @@ Most of the required connections are nicely labelled on the PCB.
 ## Pictures
 
 Unmodified PCB:
-![PCB](pictures/pcb.jpg)
+![PCB](pictures/pcb.JPG)
 
 Connections:
 ![PCB](pictures/connections.jpg)
