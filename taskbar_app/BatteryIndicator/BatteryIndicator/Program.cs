@@ -69,6 +69,9 @@ namespace BatteryIndicator
 
                 notifyIcon = new NotifyIcon();
                 notifyIcon.Icon = Resources.battery_charging_60;
+
+                notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
+
                 notifyIcon.Visible = true;
 
                 serialPort = new SerialPort(config.Port, config.Baud);
@@ -89,6 +92,11 @@ namespace BatteryIndicator
             {
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private static void NotifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         static int MapVoltageToPercent(float voltage)
