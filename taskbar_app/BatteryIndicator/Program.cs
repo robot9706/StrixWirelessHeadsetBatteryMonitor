@@ -18,6 +18,8 @@ namespace BatteryIndicator
         const float BATTERY_LOW = 3.6f;
         const float BATTERY_HIGH = 4.252f;
 
+        const int BATTERY_UNKNOWN_SECONDS = 30;
+
         static Dictionary<int, Icon> batteryIcons = new Dictionary<int, Icon>()
         {
             { 0, Resources.battery_dead },
@@ -60,6 +62,8 @@ namespace BatteryIndicator
 
         private static bool showFlagsIcon = false;
 
+        private static DateTime lastCommunication;
+
         [STAThread]
         static void Main()
         {
@@ -68,7 +72,7 @@ namespace BatteryIndicator
                 Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
 
                 notifyIcon = new NotifyIcon();
-                notifyIcon.Icon = Resources.battery_charging_60;
+                notifyIcon.Icon = Resources.battery_unknown;
 
                 notifyIcon.DoubleClick += NotifyIcon_DoubleClick;
 
@@ -111,6 +115,12 @@ namespace BatteryIndicator
 
         static void UpdateIcon()
         {
+            if (DateTime.Now.Subtract(lastCommunication).TotalSeconds >= BATTERY_UNKNOWN_SECONDS)
+            {
+                notifyIcon.Icon = Resources.battery_unknown;
+                return;
+            }
+
             int batteryPercent = MapVoltageToPercent(headphoneBatteryVoltage);
 
             notifyIcon.Text = $"{batteryPercent}% ({headphoneBatteryVoltage.ToString("F")}V){(headphoneFlags.HasFlag(HeadphoneFlags.Charging) ? " Charging": "")}{(headphoneFlags.HasFlag(HeadphoneFlags.Mute) ? " Muted" : "")}";
@@ -199,6 +209,8 @@ namespace BatteryIndicator
                     float batteryVoltage = (readVoltageNumber / 1000.0f);
 
                     // Store and show data
+                    lastCommunication = DateTime.Now;
+
                     headphoneFlags = (HeadphoneFlags)packetFlags;
                     headphoneBatteryVoltage = batteryVoltage;
 

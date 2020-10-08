@@ -181,6 +181,9 @@
   <data name="battery_dead" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\battery-dead.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="battery_unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\battery-unknown.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mute.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

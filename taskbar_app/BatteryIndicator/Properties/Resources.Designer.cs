@@ -273,6 +273,16 @@ namespace BatteryIndicator.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
+        internal static System.Drawing.Icon battery_unknown {
+            get {
+                object obj = ResourceManager.GetObject("battery_unknown", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
         internal static System.Drawing.Icon mute {
             get {
                 object obj = ResourceManager.GetObject("mute", resourceCulture);
