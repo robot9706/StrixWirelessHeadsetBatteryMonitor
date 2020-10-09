@@ -1,4 +1,5 @@
 ﻿{
   "port": "COM9",
-  "baud": 115200
+  "baud": 115200,
+  "client_mac": "0x7E, 0x92, 0xC2, 0xFB, 0x54, 0xC6"
 }

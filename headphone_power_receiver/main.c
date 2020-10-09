@@ -20,10 +20,9 @@
 
 #define DEADBEEF 0xDEADBEEF
 
-#define CLIENT_MAC 0x7E, 0x92, 0xC2, 0xFB, 0x54, 0xC6
-
 static ble_gap_scan_params_t scan_parameters;
 
+static uint8_t clientMac[6];
 static bool sendData = false; // Flag to signal when to send data
 
 static void scan_start(void)
@@ -55,9 +54,8 @@ static void ble_evt_dispatch(ble_evt_t * p_ble_evt)
 			if (sendData)
 			{
 				const ble_gap_addr_t * const peer_addr  = &p_gap_evt->params.adv_report.peer_addr;
-				const uint8_t checkAddress[6] = { CLIENT_MAC };
-				
-				if (memcmp(peer_addr->addr, checkAddress, 6) == 0)
+
+				if (memcmp(peer_addr->addr, clientMac, 6) == 0)
 				{
 					uart_put(DATA_HEADER);
 					uart_put(p_gap_evt->params.adv_report.dlen);
@@ -123,6 +121,16 @@ int main(void)
 			switch (uart_read())
 			{
 				case COMMAND_ENABLE:
+				
+					while (uart_available() < 6) 
+					{
+						// Wait for MAC
+					}
+				
+					for (int x = 0; x < 6; x++)
+					{
+						clientMac[x] = uart_read();
+					}
 					sendData = true;
 					break;
 				case COMMAND_DISABLE:

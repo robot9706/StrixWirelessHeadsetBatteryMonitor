@@ -64,12 +64,19 @@ namespace BatteryIndicator
 
         private static DateTime lastCommunication;
 
+        private static byte[] clientMac;
+
         [STAThread]
         static void Main()
         {
             try
             {
                 Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.json"));
+
+                clientMac = config.ClientMac.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(x => x.Trim())
+                    .Select(x => Convert.ToByte(x, 16))
+                    .ToArray();
 
                 notifyIcon = new NotifyIcon();
                 notifyIcon.Icon = Resources.battery_unknown;
@@ -165,6 +172,7 @@ namespace BatteryIndicator
         static void Thread_SerialRead()
         {
             serialPort.Write(new byte[] { 0xAF }, 0, 1); // Begin command
+            serialPort.Write(clientMac, 0, clientMac.Length); // Source MAC
             serialPort.BaseStream.Flush();
 
             while (true)
@@ -235,5 +243,8 @@ namespace BatteryIndicator
 
         [JsonProperty("baud")]
         public int Baud { get; private set; }
+
+        [JsonProperty("client_mac")]
+        public string ClientMac { get; private set; }
     }
 }
