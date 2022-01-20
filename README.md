@@ -74,7 +74,7 @@ Based on this data the tray icon can show the following states:
 
 |State|Tray icon|Description|
 |---|---|---|
-|Unknown|![Battery unknown](pictures/bat-unknown.png)|If no advertisement is received for more than 30seconds az unknown state is shown.|
+|Unknown|![Battery unknown](pictures/bat-unknown.png)|If no advertisement is received for more than 30seconds an unknown state is shown.|
 |Battery depleted|![Battery dead](pictures/bat-dead.png)||
 |Normal|![Battery normal](pictures/bat-percent.png)||
 |Charging|![Battery charging](pictures/bat-charge.png)||
